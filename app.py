@@ -115,49 +115,46 @@ def update_page():
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.route('/test-update')
-def test_update_page():
-    """Simple test page for updating WordPress content"""
-    return '''
-    <html>
-    <body>
-        <h2>WordPress MCP Test Page</h2>
-        <form id="updateForm">
-            <label>Page ID:</label><br>
-            <input type="number" id="pageId" value="1212"><br><br>
-            
-            <label>New Content:</label><br>
-            <textarea id="content" rows="4" cols="50">Тестово съдържание от MCP сървъра!</textarea><br><br>
-            
-            <button type="button" onclick="updatePage()">Update Page</button>
-        </form>
+@app.route('/quick-test')
+def quick_test():
+    """Quick test to update page 528 with a simple change"""
+    try:
+        # Get current content of page 528
+        get_url = f"{WP_URL}/wp-json/wp/v2/pages/528"
+        response = requests.get(get_url, auth=(WP_USER, WP_PASS), timeout=15)
         
-        <div id="result"></div>
+        if response.status_code != 200:
+            return {"error": f"Could not get page 528: {response.status_code}"}
         
-        <script>
-        function updatePage() {
-            const pageId = document.getElementById('pageId').value;
-            const content = document.getElementById('content').value;
+        current_page = response.json()
+        current_content = current_page['content']['rendered']
+        
+        # Add a test dot at the end
+        new_content = current_content + " ."
+        
+        # Update the page
+        update_url = f"{WP_URL}/wp-json/wp/v2/pages/528"
+        payload = {"content": new_content}
+        
+        update_response = requests.post(
+            update_url, 
+            json=payload, 
+            auth=(WP_USER, WP_PASS), 
+            timeout=30
+        )
+        
+        if update_response.status_code == 200:
+            return {
+                "status": "success",
+                "message": "Added test dot to page 528",
+                "page_id": 528
+            }
+        else:
+            return {
+                "status": "error",
+                "message": f"Update failed: {update_response.status_code}",
+                "response": update_response.text[:200]
+            }
             
-            fetch('/update', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    page_id: parseInt(pageId),
-                    new_content: content
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('result').innerHTML = 
-                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-            })
-            .catch(error => {
-                document.getElementById('result').innerHTML = 
-                    '<pre>Error: ' + error + '</pre>';
-            });
-        }
-        </script>
-    </body>
-    </html>
-    
+    except Exception as e:
+        return {"error": str(e)}, 500
