@@ -39,7 +39,39 @@ def wp_test():
             "page_title": response.json().get('title', {}).get('rendered', 'N/A') if response.status_code == 200 else "Error"
         }
     except Exception as e:
-        return {"error": str(e)}
+@app.route('/update', methods=['POST'])
+def update_any_page():
+    """Universal endpoint for updating any WordPress page"""
+    wp_url = os.environ.get('WP_URL', 'https://melanita.net')
+    wp_user = os.environ.get('WP_USER', '')
+    wp_pass = os.environ.get('WP_APP_PASSWORD', '')
+    
+    try:
+        data = request.get_json()
+        if not data:
+            return {"error": "No JSON data provided"}, 400
+            
+        page_id = data.get('page_id')
+        new_content = data.get('new_content')
+        
+        if not page_id or not new_content:
+            return {"error": "Required: page_id and new_content"}, 400
+        
+        # Update WordPress page
+        url = f"{wp_url}/wp-json/wp/v2/pages/{page_id}"
+        payload = {"content": new_content}
+        
+        response = requests.post(url, json=payload, auth=(wp_user, wp_pass), timeout=30)
+        
+        return {
+            "status": "success" if response.status_code == 200 else "error",
+            "page_id": page_id,
+            "code": response.status_code,
+            "message": f"Page {page_id} updated successfully" if response.status_code == 200 else "Update failed"
+        }
+        
+    except Exception as e:
+        return {"error": str(e)}, 500
 
 @app.route('/update528')
 def update_page_528():
