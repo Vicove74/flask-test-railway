@@ -35,34 +35,6 @@ def wp_test():
     except Exception as e:
         return {"error": str(e)}
 
-@app.route('/show528')
-def show_page_528():
-    """Show content of page 528"""
-    wp_url = os.environ.get('WP_URL', 'https://melanita.net')
-    wp_user = os.environ.get('WP_USER', '')
-    wp_pass = os.environ.get('WP_APP_PASSWORD', '')
-    
-    try:
-        get_url = f"{wp_url}/wp-json/wp/v2/pages/528"
-        response = requests.get(get_url, auth=(wp_user, wp_pass), timeout=15)
-        
-        if response.status_code != 200:
-            return {"error": f"Could not get page: {response.status_code}"}
-        
-        page_data = response.json()
-        
-        return {
-            "status": "success",
-            "page_id": 528,
-            "title": page_data.get('title', {}).get('rendered', ''),
-            "content": page_data.get('content', {}).get('rendered', ''),
-            "modified": page_data.get('modified', ''),
-            "word_count": len(page_data.get('content', {}).get('rendered', '').split())
-        }
-        
-    except Exception as e:
-        return {"error": str(e)}
-
 @app.route('/update528')
 def update_page_528():
     wp_url = os.environ.get('WP_URL', 'https://melanita.net')
@@ -90,35 +62,3 @@ def update_page_528():
         
     except Exception as e:
         return {"error": str(e)}
-
-@app.route('/update', methods=['POST'])
-def update_any_page():
-    wp_url = os.environ.get('WP_URL', 'https://melanita.net')
-    wp_user = os.environ.get('WP_USER', '')
-    wp_pass = os.environ.get('WP_APP_PASSWORD', '')
-    
-    try:
-        data = request.get_json()
-        if not data:
-            return {"error": "No JSON data provided"}, 400
-            
-        page_id = data.get('page_id')
-        new_content = data.get('new_content')
-        
-        if not page_id or not new_content:
-            return {"error": "Required: page_id and new_content"}, 400
-        
-        url = f"{wp_url}/wp-json/wp/v2/pages/{page_id}"
-        payload = {"content": new_content}
-        
-        response = requests.post(url, json=payload, auth=(wp_user, wp_pass), timeout=30)
-        
-        return {
-            "status": "success" if response.status_code == 200 else "error",
-            "page_id": page_id,
-            "code": response.status_code,
-            "message": f"Page {page_id} updated successfully" if response.status_code == 200 else "Update failed"
-        }
-        
-    except Exception as e:
-        return {"error": str(e)}, 500
