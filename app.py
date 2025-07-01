@@ -93,4 +93,32 @@ def update_any_page():
         }
         
     except Exception as e:
-        return {"error": str(e)}, 500
+@app.route('/get528')
+def get_full_content_528():
+    """Get complete content of page 528"""
+    wp_url = os.environ.get('WP_URL', 'https://melanita.net')
+    wp_user = os.environ.get('WP_USER', '')
+    wp_pass = os.environ.get('WP_APP_PASSWORD', '')
+    
+    try:
+        url = f"{wp_url}/wp-json/wp/v2/pages/528"
+        response = requests.get(url, auth=(wp_user, wp_pass), timeout=15)
+        
+        if response.status_code == 200:
+            data = response.json()
+            return {
+                "status": "success",
+                "page_id": 528,
+                "title": data.get('title', {}).get('rendered', ''),
+                "content": data.get('content', {}).get('rendered', ''),
+                "content_raw": data.get('content', {}).get('raw', ''),
+                "excerpt": data.get('excerpt', {}).get('rendered', ''),
+                "modified": data.get('modified', ''),
+                "slug": data.get('slug', ''),
+                "link": data.get('link', '')
+            }
+        else:
+            return {"error": f"Could not get page: {response.status_code}"}
+        
+    except Exception as e:
+        return {"error": str(e)}
