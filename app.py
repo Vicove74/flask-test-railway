@@ -1,6 +1,4 @@
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)import os
+import os
 from flask import Flask, request, jsonify
 import requests
 
@@ -47,33 +45,6 @@ def test_connection():
             "error_type": type(e).__name__
         }, 500
 
-@app.route('/pages')
-def list_pages():
-    """List WordPress pages"""
-    try:
-        url = f"{WP_URL}/wp-json/wp/v2/pages"
-        response = requests.get(url, auth=(WP_USER, WP_PASS), timeout=15)
-        
-        if response.status_code == 200:
-            pages = response.json()
-            return {
-                "status": "success",
-                "total": len(pages),
-                "pages": [
-                    {
-                        "id": page["id"],
-                        "title": page["title"]["rendered"],
-                        "status": page["status"]
-                    }
-                    for page in pages
-                ]
-            }
-        else:
-            return {"error": f"WordPress returned status {response.status_code}"}, response.status_code
-            
-    except Exception as e:
-        return {"error": str(e)}, 500
-
 @app.route('/update', methods=['POST'])
 def update_page():
     """Update WordPress page content"""
@@ -115,46 +86,6 @@ def update_page():
     except Exception as e:
         return {"error": str(e)}, 500
 
-@app.route('/quick-test')
-def quick_test():
-    """Quick test to update page 528 with a simple change"""
-    try:
-        # Get current content of page 528
-        get_url = f"{WP_URL}/wp-json/wp/v2/pages/528"
-        response = requests.get(get_url, auth=(WP_USER, WP_PASS), timeout=15)
-        
-        if response.status_code != 200:
-            return {"error": f"Could not get page 528: {response.status_code}"}
-        
-        current_page = response.json()
-        current_content = current_page['content']['rendered']
-        
-        # Add a test dot at the end
-        new_content = current_content + " ."
-        
-        # Update the page
-        update_url = f"{WP_URL}/wp-json/wp/v2/pages/528"
-        payload = {"content": new_content}
-        
-        update_response = requests.post(
-            update_url, 
-            json=payload, 
-            auth=(WP_USER, WP_PASS), 
-            timeout=30
-        )
-        
-        if update_response.status_code == 200:
-            return {
-                "status": "success",
-                "message": "Added test dot to page 528",
-                "page_id": 528
-            }
-        else:
-            return {
-                "status": "error",
-                "message": f"Update failed: {update_response.status_code}",
-                "response": update_response.text[:200]
-            }
-            
-    except Exception as e:
-        return {"error": str(e)}, 500
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
