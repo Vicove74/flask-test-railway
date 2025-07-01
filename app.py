@@ -1,4 +1,6 @@
-import os
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)import os
 from flask import Flask, request, jsonify
 import requests
 
@@ -113,6 +115,49 @@ def update_page():
     except Exception as e:
         return {"error": str(e)}, 500
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+@app.route('/test-update')
+def test_update_page():
+    """Simple test page for updating WordPress content"""
+    return '''
+    <html>
+    <body>
+        <h2>WordPress MCP Test Page</h2>
+        <form id="updateForm">
+            <label>Page ID:</label><br>
+            <input type="number" id="pageId" value="1212"><br><br>
+            
+            <label>New Content:</label><br>
+            <textarea id="content" rows="4" cols="50">Тестово съдържание от MCP сървъра!</textarea><br><br>
+            
+            <button type="button" onclick="updatePage()">Update Page</button>
+        </form>
+        
+        <div id="result"></div>
+        
+        <script>
+        function updatePage() {
+            const pageId = document.getElementById('pageId').value;
+            const content = document.getElementById('content').value;
+            
+            fetch('/update', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    page_id: parseInt(pageId),
+                    new_content: content
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = 
+                    '<pre>Error: ' + error + '</pre>';
+            });
+        }
+        </script>
+    </body>
+    </html>
+    
