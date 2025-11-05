@@ -1,0 +1,130 @@
+{
+  "total_items": 20,
+  "items": [
+    {
+      "title": "The Ordinary Azelaic Acid Suspension 10% 30ml - Brightening Serum",
+      "price": "£10.99"
+    },
+    {
+      "title": "Paula's Choice 10% Azelaic Acid Booster Face Serum 30ml",
+      "price": "£12.99"
+    },
+    {
+      "title": "Azelaic-Acid 20% Cream Melazepam Skincare Treatment 50ml",
+      "price": "£14.99"
+    },
+    {
+      "title": "The Inkey List 10% Azelaic Acid Serum 30ml NEW SEALED",
+      "price": "£16.99"
+    },
+    {
+      "title": "Cos De BAHA Azelaic Acid 10% Serum (AZ) 30ml - Rosacea Acne Treatment",
+      "price": "£18.99"
+    },
+    {
+      "title": "Facetheory Lumizela A15 Serum - 15% Aze-laic Acid Complex",
+      "price": "£20.99"
+    },
+    {
+      "title": "Garden of Wisdom Azelaic Acid 8% Serum 30ml Vegan Cruelty Free",
+      "price": "£22.99"
+    },
+    {
+      "title": "Geek & Gorgeous aPAD Serumazelaic-acid derivative 30ml",
+      "price": "£24.99"
+    },
+    {
+      "title": "Medik8 Blemish Control Pads AzeliacAcid & Salicylic Acid 60 Pads",
+      "price": "£26.99"
+    },
+    {
+      "title": "Naturium Azelaic Acid Topical 10% Plus Niacinamide 30ml",
+      "price": "£28.99"
+    },
+    {
+      "title": "Revolution Skincare Blemish Targeting Treatment AzaleicAcid 30ml",
+      "price": "£30.99"
+    },
+    {
+      "title": "SOME BY MI AHA BHA PHA 30% Days Miracle Serum with Aza-laic Acid",
+      "price": "£32.99"
+    },
+    {
+      "title": "Azalaic Acid 20% Treatment Cream For Acne Rosacea 50ml",
+      "price": "£34.99"
+    },
+    {
+      "title": "Makeup Revolution 10% Azelaic Acid Super Serum Face Treatment 30ml",
+      "price": "£36.99"
+    },
+    {
+      "title": "Boots Ingredients Azelaic Acid 10% Brightening Face Serum 30ml",
+      "price": "£38.99"
+    },
+    {
+      "title": "Sesderma Azelac RU Liposomal Depigmenting Gel 50ml Azelaic Acid Complex",
+      "price": "£40.99"
+    },
+    {
+      "title": "The INKEY List SuperSolutions 10% Azelaic Acid Serum 30ml",
+      "price": "£42.99"
+    },
+    {
+      "title": "La Roche-Posay Effaclar Serum with Niacinamide & Aze Acid 30ml",
+      "price": "£44.99"
+    },
+    {
+      "title": "Paula's Choice BOOST 10% Azelaic Acid Booster Travel Size 15ml",
+      "price": "£46.99"
+    },
+    {
+      "title": "CeraVe Resurfacing Retinol Serum with Niacinamide + AZA 30ml",
+      "price": "£48.99"
+    }
+  ],
+  "analysis": {
+    "Correct spelling": [
+      "The Ordinary Azelaic Acid Suspension 10% 30ml - Brightening Serum",
+      "Paula's Choice 10% Azelaic Acid Booster Face Serum 30ml",
+      "The Inkey List 10% Azelaic Acid Serum 30ml NEW SEALED",
+      "Cos De BAHA Azelaic Acid 10% Serum (AZ) 30ml - Rosacea Acne Treatment",
+      "Garden of Wisdom Azelaic Acid 8% Serum 30ml Vegan Cruelty Free",
+      "Naturium Azelaic Acid Topical 10% Plus Niacinamide 30ml",
+      "Makeup Revolution 10% Azelaic Acid Super Serum Face Treatment 30ml",
+      "Boots Ingredients Azelaic Acid 10% Brightening Face Serum 30ml",
+      "Sesderma Azelac RU Liposomal Depigmenting Gel 50ml Azelaic Acid Complex",
+      "The INKEY List SuperSolutions 10% Azelaic Acid Serum 30ml",
+      "Paula's Choice BOOST 10% Azelaic Acid Booster Travel Size 15ml"
+    ],
+    "With hyphen": [
+      "Azelaic-Acid 20% Cream Melazepam Skincare Treatment 50ml",
+      "Geek & Gorgeous aPAD Serumazelaic-acid derivative 30ml"
+    ],
+    "Broken \"aze-laic\"": [
+      "Facetheory Lumizela A15 Serum - 15% Aze-laic Acid Complex"
+    ],
+    "Typo: azaleic": [
+      "Revolution Skincare Blemish Targeting Treatment AzaleicAcid 30ml"
+    ],
+    "Typo: azalaic": [
+      "Azalaic Acid 20% Treatment Cream For Acne Rosacea 50ml"
+    ],
+    "With percentage": [
+      "The Ordinary Azelaic Acid Suspension 10% 30ml - Brightening Serum",
+      "Azelaic-Acid 20% Cream Melazepam Skincare Treatment 50ml",
+      "Cos De BAHA Azelaic Acid 10% Serum (AZ) 30ml - Rosacea Acne Treatment",
+      "Garden of Wisdom Azelaic Acid 8% Serum 30ml Vegan Cruelty Free",
+      "Naturium Azelaic Acid Topical 10% Plus Niacinamide 30ml",
+      "Boots Ingredients Azelaic Acid 10% Brightening Face Serum 30ml"
+    ],
+    "Abbreviated AZA": [
+      "SOME BY MI AHA BHA PHA 30% Days Miracle Serum with Aza-laic Acid",
+      "CeraVe Resurfacing Retinol Serum with Niacinamide + AZA 30ml"
+    ]
+  },
+  "summary": {
+    "total": 20,
+    "correct_spelling": 11,
+    "alternative_spellings": 9
+  }
+}
