@@ -30,9 +30,15 @@ function showUploadDialog() {
  */
 function processFileFromUpload(fileDataObject) {
   try {
-    // FIXED: Pass base64 string directly instead of decoding it first
-    // The XLSX library will handle the base64 decoding internally
-    const workbook = XLSX.read(fileDataObject.bytes, {type: 'base64'});
+    // Convert base64 to blob, then to byte array
+    const blob = Utilities.newBlob(Utilities.base64Decode(fileDataObject.bytes), fileDataObject.mimeType, fileDataObject.name);
+    const bytes = blob.getBytes();
+
+    // Convert bytes to array format that XLSX can read
+    const data = new Uint8Array(bytes);
+
+    // Read the workbook from the array
+    const workbook = XLSX.read(data, {type: 'array'});
 
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
@@ -46,7 +52,7 @@ function processFileFromUpload(fileDataObject) {
     return _coreProcessingLogic(sourceData);
 
   } catch (e) {
-    return 'An error occurred: ' + e.message;
+    return 'An error occurred: ' + e.message + ' (Stack: ' + e.stack + ')';
   }
 }
 
